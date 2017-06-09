@@ -3,6 +3,7 @@ package meetup
 import (
 	"io/ioutil"
 	"net/http"
+	"encoding/json"
 )
 
 /*Client is a go client for the MeetUp Api */
@@ -12,7 +13,7 @@ type Client struct {
 }
 
 /*Status executes a status request */
-func (mc *Client) Status() ([]byte, error) {
+func (mc *Client) Status() (*Status, error) {
 	url := "https://api.meetup.com/status?key" + mc.key + "&sign=true"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -25,5 +26,15 @@ func (mc *Client) Status() ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	body, err:= ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	status := new(Status)
+	json.Unmarshal(body, status)
+	if err != nil {
+		return nil, err
+	}
+	return status, err
 }
