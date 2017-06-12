@@ -15,9 +15,9 @@ func TestInit(t *testing.T) {
 	}
 }
 
-func TestNewMeetupClient(t *testing.T) {
+func TestClient(t *testing.T) {
 	config := Init(time.Second, "12345")
-	client := config.NewMeetupClient()
+	client := config.Client()
 	if client.client == nil {
 		t.Errorf("client is nil")
 	}

@@ -11,6 +11,10 @@ type ClientConfig struct {
 	Key           string
 }
 
+type Credentials struct {
+	key string
+}
+
 /*Init initializes all the configurations specified */
 func Init(timeout time.Duration, apiKey string) *ClientConfig {
 	return &ClientConfig{
@@ -19,9 +23,9 @@ func Init(timeout time.Duration, apiKey string) *ClientConfig {
 	}
 }
 
-/*NewMeetupClient constructs MeetupClinet*/
-func (config *ClientConfig) NewMeetupClient() *Client {
-	return &Client{
+/*Client constructs MeetupClinet*/
+func (config *ClientConfig) Client() *ClientParams {
+	return &ClientParams{
 		client: &http.Client{Timeout: config.ClientTimeout},
 		key:    config.Key,
 	}

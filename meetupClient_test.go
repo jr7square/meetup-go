@@ -7,21 +7,41 @@ import (
 
 const key = "1c79452f27445bf6c365104a2b6132"
 
-func TestStatus(t *testing.T) {
+func TestNewClient(t *testing.T) {
   config := Init(time.Second, key)
-  client := config.NewMeetupClient()
+  client := config.Client()
 
-  status, err := client.Status()
-  if err != nil {
-    t.Errorf("Something went wrong")
+  meetup := NewClient(client)
+
+  if meetup == nil {
+    t.Errorf("meetup is nil")
   }
-  if status.Status != "ok" {
-    t.Errorf("api is not ok")
+  if meetup.sling == nil {
+    t.Errorf("meetup sling is nil")
   }
-  if status.Message != "" {
-    t.Errorf("Message is not empty string")
+  if meetup.Meta == nil {
+    t.Errorf("meetup Meta is nil")
   }
-  if status.Title != "" {
-    t.Errorf("Title is not empty ")
-  }
+
 }
+
+// func TestStatus(t *testing.T) {
+//   config := Init(time.Second, key)
+//   client := config.Client()
+//   meetup := NewClient(client)
+//
+//
+//   status, err := meetup.Meta.Status()
+//   if err != nil {
+//     t.Errorf("Something went wrong")
+//   }
+//   if status.Status != "ok" {
+//     t.Errorf("api is not ok")
+//   }
+//   if status.Message != "" {
+//     t.Errorf("Message is not empty string")
+//   }
+//   if status.Title != "" {
+//     t.Errorf("Title is not empty ")
+//   }
+// }
