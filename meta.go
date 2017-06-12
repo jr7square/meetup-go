@@ -24,7 +24,7 @@ type ResponseMeta struct {
   Url string `json:"url"`
   SignedUrl string `json:"signed_url"`
   Id string `json:"id"`
-  Updated string `json:"updated"`
+  Updated int `json:"updated"`
   Lat string `json:"lat"`
 }
 
