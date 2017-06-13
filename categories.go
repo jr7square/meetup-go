@@ -12,7 +12,7 @@ type Category struct {
   ShortName string `json:"shortname"`
 }
 
-type CategoryResponse struct {
+type CategoriesResponse struct {
   Results []Category `json:"results"`
   Meta ResponseMeta `json:"meta"`
 }
@@ -47,8 +47,8 @@ func newCategoryService(sling *sling.Sling, apiKey string) *CategoryService {
   }
 }
 
-func (cs *CategoryService) GetCategories(params *ReqCategoryParams) (CategoryResponse, *http.Response, error) {
-  categories := new(CategoryResponse)
+func (cs *CategoryService) GetCategories(params *ReqCategoryParams) (CategoriesResponse, *http.Response, error) {
+  categories := new(CategoriesResponse)
   apiError := new(ApiError)
   resp, err := cs.sling.New().QueryStruct(params).Receive(categories, apiError)
   return *categories, resp, relevantError(err, *apiError)
